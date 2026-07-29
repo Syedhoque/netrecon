@@ -5,14 +5,22 @@ It's built for sysadmins, security learners, and anyone doing authorized testing
 
 ---
 
+## ⚡ Key Features
+• **Native Desktop GUI** — Built with Tkinter for a seamless, dark-themed native experience on Kali Linux without requiring an external web browser.
+• **Threaded TCP Port Scanner** — Quickly scan common ports, custom ranges, or specific ports with multi-threading and timeout controls.
+• **HTTP Directory Brute-Forcer** — Enumerate web directories using standard Kali wordlists (e.g., SecLists, DIRB) with support for custom file extensions (`.php`, `.html`, `.txt`).
+• **Live Stop Functionality** — Abort active scanning threads instantly using the built-in Stop button.
+• **Export Results** — Export live console findings directly into clean `.txt` log files with a single click.
+• **Persistent History Logs** — Track and view prior scan sessions through a dedicated Popup History Manager.
+• **Cyber Typewriter About Section** — Includes built-in developer credentials and ethical usage notices.
 
-## Key Features
-• **Threaded TCP port scanner** — scan common ports, a range, or a custom list with configurable thread count and timeout.
-• **HTTP directory/file brute-forcer** — walk a wordlist against a target URL, with optional file extensions (.php, .html, etc.) and a bundled starter wordlist.
-• **Single CLI, two subcommands** — netrecon.py portscan and netrecon.py dirbrute, no separate binaries to manage.
-• **Local web portal** — a Flask app with a browser UI: mode toggle, live radar sweep animation, and a scrolling terminal-style log of results.
-• **Minimal dependencies** — the port scanner uses only the Python standard library; requests and flask are only needed for HTTP brute-forcing and the web UI respectively.
-• **Sane defaults, tunable everything** — thread counts and timeouts are capped and configurable so scans stay predictable on a laptop or a small VM.
+---
+
+## 🛠️ Requirements & Dependencies
+Ensure Python 3, Tkinter, and Requests are installed on your system:
+
+**bash command
+sudo apt update && sudo apt install -y python3 python3-tk python3-requests
 
 ---
 
@@ -23,50 +31,37 @@ After completed installation or cloning, navigate to the directory and run the a
 cd netrecon
 
 ### Run the application
-python3 netrecon.py
+python netrecon.py
 
 ---
 
-## 🛠️ Usage Guide
-**CLI: Port scan**
-# Scan the most common ports (default)
-python netrecon.py portscan 192.168.1.10
+## 📖 Usage Guide
+**Select Mode**: Choose between PORT SCAN and DIR BRUTE using the top sidebar toggle.
 
-# Scan a custom range
-python netrecon.py portscan example.com -p 1-1000
+###Target Input:
+**Port Scan**: Enter an IP address or hostname (e.g., 127.0.0.1 or example.com).
 
-# Scan specific ports with more threads
-python netrecon.py portscan 10.0.0.5 -p 22,80,443,8080 -t 500
-Flag	Description	Default
--p, --ports	common, a range 1-1000, or a list 22,80,443	common
--t, --threads	Number of worker threads	200
---timeout	Per-connection timeout (seconds)	1.0
-CLI: Directory brute-force
-# Use the bundled wordlist
-python netrecon.py dirbrute https://example.com
+**Dir Brute**: Enter a target URL (e.g., http://example.com).
 
-# Use your own wordlist and check extensions
-python netrecon.py dirbrute https://example.com -w /path/to/wordlist.txt -x php,html,txt
-Flag	Description	Default
--w, --wordlist	Path to a newline-delimited wordlist	wordlists/common.txt
--x, --extensions	Comma-separated extensions to also try	none
--t, --threads	Number of worker threads	30
---timeout	Per-request timeout (seconds)	5.0
-For real engagements, point -w at a larger list such as one from SecLists.
-Web portal
-pip install -r requirements.txt
-cd web
-python app.py
-# open http://127.0.0.1:5000
-This runs the same scanning code as the CLI, triggered from a form instead of arguments — same output, plus a live radar view. It's a local, unauthenticated dev server: don't expose it to the internet or an untrusted network.
-Example output
-[*] NetRecon port scan starting
-[*] Target: example.com (93.184.216.34)
-[*] Ports: 20 total
-[*] Threads: 200  Timeout: 1.0s
+**Parameters**:
 
-[+] 80/tcp open	HTTP
-[+] 443/tcp open	HTTPS
+**Ports**: Enter common, ranges (1-1000), or lists (22,80,443).
+
+**Extensions**: Specify extensions for web brute-forcing (e.g., php,html,txt).
+
+**Threads & Timeout**: Fine-tune execution speed and connection timeout.
+
+**Execute & Control**:
+
+**Click** ▶ RUN SCAN to begin.
+
+**Click** ⏹ STOP to interrupt an ongoing scan at any time.
+
+**Click** 💾 EXPORT (.TXT) to save the current terminal log.
+
+**Click** 📜 SCAN HISTORY to view or clear session logs.
+
+**Click** ℹ ABOUT SOFTWARE to view developer info and compliance notices.
 
 
 ## 📜 License
