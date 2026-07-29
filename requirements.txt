@@ -1,94 +1,12 @@
-# NetRecon
+# ===================================================================
+# NetRecon - Security & Reconnaissance Suite
+# Dependencies Requirements File
+# ===================================================================
 
-A lightweight, dependency-light network reconnaissance CLI written in Python.
-Two subcommands in one tool:
+# HTTP Requests library for Directory Brute-forcing engine
+requests>=2.28.0
 
-- **`portscan`** — threaded TCP connect-scan of a host (like a very small `nmap`)
-- **`dirbrute`** — threaded HTTP directory/file brute-forcer (like a very small `gobuster`)
-
-## ⚠️ Authorized use only
-
-Only run this against hosts and web applications **you own, or have explicit
-written permission to test** (e.g. your own lab, a CTF, or a client engagement
-covered by a signed scope). Scanning or brute-forcing systems without
-authorization is illegal in most jurisdictions (e.g. under the U.S. CFAA or
-the UK Computer Misuse Act) and this project is provided for legitimate
-security testing and sysadmin use only. You are responsible for how you use it.
-
-## Install
-
-```bash
-git clone https://github.com/<your-username>/netrecon.git
-cd netrecon
-pip install -r requirements.txt
-```
-
-Requires Python 3.8+. `portscan` uses only the standard library; `dirbrute`
-needs `requests`.
-
-## Usage
-
-### Port scan
-
-```bash
-# Scan the most common ports (default)
-python netrecon.py portscan 192.168.1.10
-
-# Scan a custom range
-python netrecon.py portscan example.com -p 1-1000
-
-# Scan specific ports with more threads
-python netrecon.py portscan 10.0.0.5 -p 22,80,443,8080 -t 500
-```
-
-Options:
-
-| Flag | Description | Default |
-|---|---|---|
-| `-p, --ports` | `common`, a range `1-1000`, or a list `22,80,443` | `common` |
-| `-t, --threads` | Number of worker threads | `200` |
-| `--timeout` | Per-connection timeout (seconds) | `1.0` |
-
-### Directory brute-force
-
-```bash
-# Use the bundled wordlist
-python netrecon.py dirbrute https://example.com
-
-# Use your own wordlist and check extensions
-python netrecon.py dirbrute https://example.com -w /path/to/wordlist.txt -x php,html,txt
-
-# Tune concurrency and timeout
-python netrecon.py dirbrute https://example.com -t 50 --timeout 8
-```
-
-Options:
-
-| Flag | Description | Default |
-|---|---|---|
-| `-w, --wordlist` | Path to a newline-delimited wordlist | `wordlists/common.txt` |
-| `-x, --extensions` | Comma-separated extensions to also try | none |
-| `-t, --threads` | Number of worker threads | `30` |
-| `--timeout` | Per-request timeout (seconds) | `5.0` |
-
-The bundled `wordlists/common.txt` is intentionally small for quick tests.
-For real engagements, point `-w` at a larger list such as one from
-[SecLists](https://github.com/danielmiessler/SecLists).
-
-## Example output
-
-```
-[*] NetRecon port scan starting
-[*] Target: example.com (93.184.216.34)
-[*] Ports: 20 total
-[*] Threads: 200  Timeout: 1.0s
-
-[+] 80/tcp open	HTTP
-[+] 443/tcp open	HTTPS
-
-[*] Scan complete in 0.42s. 2 open port(s) found.
-```
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+# Note: Tkinter, socket, threading, and concurrent.futures 
+# are part of the Python Standard Library. 
+# On Linux (Kali/Ubuntu), install Tkinter via system package manager:
+# sudo apt-get install python3-tk
